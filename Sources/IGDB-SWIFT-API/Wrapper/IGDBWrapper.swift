@@ -18,7 +18,7 @@ public class IGDBWrapper {
     }
     
     public func apiProtoRequest(endpoint: Endpoint, apicalypseQuery: String, dataResponse: @escaping (Data) -> (Void), errorResponse: @escaping (RequestException) -> (Void)) {
-        let requestURL = "\(APIURL)\(endpoint.url()).pb"
+        let requestURL = "\(APIURL)\(endpoint.url())"
         Just.post(requestURL, headers: requestHeaders, requestBody: apicalypseQuery.data(using: .utf8, allowLossyConversion: false)) { response in
             if response.statusCode != 200 {
                 errorResponse(RequestException(statusCode: response.statusCode ?? -1, url: requestURL, msg: response.text ?? ""))
@@ -40,7 +40,7 @@ public class IGDBWrapper {
     
 //    Adding count functions
     public func apiProtoCountRequest(endpoint: Endpoint, apicalypseQuery: String, dataResponse: @escaping (Data) -> (Void), errorResponse: @escaping (RequestException) -> (Void)) {
-        let requestURL = "\(APIURL)\(endpoint.url())/count.pb"
+        let requestURL = "\(APIURL)\(endpoint.url())/count"
         Just.post(requestURL, headers: requestHeaders, requestBody: apicalypseQuery.data(using: .utf8, allowLossyConversion: false)) { response in
             if response.statusCode != 200 {
                 errorResponse(RequestException(statusCode: response.statusCode ?? -1, url: requestURL, msg: response.text ?? ""))
